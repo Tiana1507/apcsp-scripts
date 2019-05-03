@@ -1,0 +1,23 @@
+#!/bin/bash
+
+#set up list of raspberry pi
+RPILIST="rpi1, rpi2, rpi3, rpi4, rpi5, rpi6, rpi7, rpi8, rpi9, rpi10, rpi11, rpi12, rpi13, rpi14, rpi15, rpi16, rpi17, rpi18, rpi19, rpi20"
+
+#starts the echo
+echo
+#starts the for loop
+for device in $RPILIST ; do
+
+#checks if pingable. The ping.device for now is pseucdocode until i can figure out what the actual command is.
+	Ping "$device" |find "TTL=" && echo MyHost found
+	Ping  "$device" |find "TTL=" || echo MyHost notfound
+
+#returns true statement
+		echo "$device is connected"; echo
+#returns false statement
+		echo "$device is not connected"; echo
+	echo
+done
+
+#ends code
+exit 0
