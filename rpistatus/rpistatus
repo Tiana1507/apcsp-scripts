@@ -20,6 +20,6 @@ for device in $RPILIST ; do
 	echo
 	NUM=$[NUM+1]
 done
-
+#Comment  to be insterted later
 #ends code
 exit 0
