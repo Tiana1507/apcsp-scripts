@@ -1,25 +1,38 @@
 #!/bin/bash
 
-#set up list of raspberry pi
-RPILIST="rpi1, rpi2, rpi3, rpi4, rpi5, rpi6, rpi7, rpi8, rpi9, rpi10, rpi11, rpi12, rpi13, rpi14, rpi15, rpi16, rpi17, rpi18, rpi19, rpi20"
-RPIIPLIST="172.19.223.92, 172.19.223.91, 172.19.223.100" 
-NUM=1
+#sets up the rpi header to cocat onto the variable
+header="rpi"
 
-#starts the echo
-echo
+#checks if in range of 01 to 20 (and then pings said device)and returns list of all availible if th$
+if [ $# -eq 0 ]
+then
+        for i in $(seq -w 01 20)
+        do
+        CONCAT=$header$i
+        SYSTEM=`ping -c 1 $CONCAT`
+        STATUS=`echo $?`
 
-#starts the for loop
-for device in $RPILIST ; do
-	fping -c1 -t300 $device 2>/dev/null 1>/dev/null
-	if [ "$?" > 2 ]
-	then
-  		echo "rpi$NUM found"
-	else
-  		echo "rpi$NUM not found"
-	fi
-	echo
-	NUM=$[NUM+1]
-done
-#Comment  to be insterted later
-#ends code
+        if [ $STATUS -eq  0 ]
+        then
+                echo "$CONCAT: is online"
+        else
+                echo "$CONCAT: is not online"
+        fi
+        done
+
+# if not in range, specified number, will check
+else
+        for i
+        do
+        SYSTEM=`ping -c 1 $i`
+        STATUS=`echo $?`
+
+        if [ $STATUS -eq 0 ]
+        then
+                echo "$i: is online"
+        else
+                echo "$i: is not online"
+        fi
+        done
+fi
 exit 0
