@@ -20,7 +20,7 @@ for i in ${IP%.*}.{1..255}; do
     
 		nc -zv -w1 $i 80 > /dev/null 2>&1
 		if [ $? -eq 0 ]; then
-			echo "HTTP is online"
+			echo "HTTP is running"
     else
       echo "HTTP is not running"
 		fi
