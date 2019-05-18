@@ -1,0 +1,31 @@
+#!/bin/bash
+
+IP=`hostname -I`
+
+echo $IP
+echo ${IP%.*}
+
+for i in ${IP%.*}.{1..255}; do
+	ping -c 1 -W 1 $i > /dev/null 2>&1
+  
+	if [ $? -eq 0 ]; then
+		echo $i "Online"
+    
+		nc -zv -w1 $i 22 > /dev/null 2>&1
+		if [ $? -eq 0 ]; then
+			echo "SSH is running"
+    else
+      echo "HTTP is not running"
+		fi
+    
+		nc -zv -w1 $i 80 > /dev/null 2>&1
+		if [ $? -eq 0 ]; then
+			echo "HTTP is online"
+    else
+      echo "HTTP is not running"
+		fi
+    
+		grep $i /proc/net/arp | awk '{print $4}' 
+		host $i | awk '{print $5}'
+	fi
+done
