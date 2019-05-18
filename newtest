@@ -15,7 +15,7 @@ for i in ${IP%.*}.{1..255}; do
 		if [ $? -eq 0 ]; then
 			echo "SSH is running"
     else
-      echo "HTTP is not running"
+      echo "SSH is not running"
 		fi
     
 		nc -zv -w1 $i 80 > /dev/null 2>&1
