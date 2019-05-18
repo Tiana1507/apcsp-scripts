@@ -24,7 +24,7 @@ for i in ${IP%.*}.{1..255}; do
     else
       echo "HTTP is not running"
 		fi
-    
+    		#4 is the MAC, 5 is the hostname
 		grep $i /proc/net/arp | awk '{print $4}' 
 		host $i | awk '{print $5}'
 	fi
